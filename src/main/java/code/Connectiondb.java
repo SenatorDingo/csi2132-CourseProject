@@ -3,41 +3,33 @@ package code;
 import java.sql.*;
 
 public class Connectiondb {
-    // Database connection parameters
-    public static void main(String[] args) {
-        try (Connection db = DriverManager.getConnection("jdbc:postgresql://localhost:5432/WebApp", "postgres", "new_password");) {
-            System.out.println("Connected");
+    private Connectiondb con;
 
-            Statement stmt = db.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM employee");
-            while (rs.next()) {
+    //connecting to the db
+    public Connectiondb getConnection() throws Exception {
 
-                //getting the test data
-                String employeeID = rs.getString("employeeID");
-                String sin = rs.getString("sin");
-                String firstName = rs.getString("firstName");
-                String lastName = rs.getString("lastName");
-                String middleInitials = rs.getString("middleInitials");
-                String name = rs.getString("name");
-                String address = rs.getString("address");
-                String role = rs.getString("role");
+        try {
+            con = (Connectiondb) DriverManager.getConnection("jdbc:postgresql://localhost:5432/WebApp", "postgres", "new_password");
+            return con;
 
-                //prinign out the line
-                System.out.println(
-                        "EmployeeID: " + employeeID +
-                        ", SIN: " + sin +
-                        ", First Name: " + firstName +
-                        ", Last Name: " + lastName +
-                        ", Middle Initials: " + middleInitials +
-                        ", Name: " + name +
-                        ", Address: " + address +
-                        ", Role: " + role);
-
-            }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new Exception("Could not establish connection with the Database Server: "
+                    + e.getMessage());
+
         }
 
+
+    }
+
+    //closing the db
+    public void close() throws SQLException {
+        try {
+            if (con != null)
+                con.close();
+        } catch (SQLException e) {
+            throw new SQLException("Could not close connection with the Database Server: "
+                    + e.getMessage());
+        }
 
     }
 
