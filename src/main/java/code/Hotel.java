@@ -1,5 +1,10 @@
 package code;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Hotel {
     private String id;
     private String name;
@@ -8,6 +13,8 @@ public class Hotel {
     private int phone;
     private int numRooms;
     private String category;
+
+    static Connection connection = Connectiondb.getConnection();
 
 
     public Hotel(String id, String name, String address, String email, int phone, int numRooms, String category) {
@@ -75,6 +82,40 @@ public class Hotel {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public static void getAllHotels(){
+
+        if (connection == null) {
+            System.out.println("Failed to establish database connection.");
+            return;
+        }
+
+        String query = "SELECT * FROM hotel";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                System.out.println("Hotel ID: " + resultSet.getString("id"));
+                System.out.println("Name: " + resultSet.getString("name"));
+                System.out.println("Address: " + resultSet.getString("address"));
+                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("Phone: " + resultSet.getString("phone"));
+                System.out.println("Number of Rooms: " + resultSet.getString("numRooms"));
+                System.out.println("Category: " + resultSet.getString("category"));
+                System.out.println("-------------------------------------");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connectiondb.closeConnection(connection);
+        }
+
+    }
+
+    public static void main(String[] args){
+        getAllHotels();
+    }
+
 
 
     @Override
