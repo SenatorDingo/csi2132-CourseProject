@@ -1,20 +1,17 @@
 package code;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Customer {
     private String customerID;
     private String name;
     private String idType;
-    private String dateOfRegistration;
+    private Date dateOfRegistration;
     private String address;
 
     static Connection connection = Connectiondb.getConnection();
 
-    public Customer(String customerID, String name, String idType, String dateOfRegistration, String address) {
+    public Customer(String customerID, String name, String idType, Date dateOfRegistration, String address) {
         this.customerID = customerID;
         this.name = name;
         this.idType = idType;
@@ -77,11 +74,11 @@ public class Customer {
         this.name = name;
     }
 
-    public String getDateOfRegistration() {
+    public Date getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public void setDateOfRegistration(String dateOfRegistration) {
+    public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
     }
 

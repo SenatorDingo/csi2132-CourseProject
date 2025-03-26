@@ -1,19 +1,16 @@
 package code;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Renting {
     private String rentingID;
-    private String checkInDate;
-    private String checkOutDate;
+    private Date checkInDate;
+    private Date checkOutDate;
     private String paymentMethod;
     static Connection connection = Connectiondb.getConnection();
 
 
-    public Renting(String rentingID, String checkInDate, String checkOutDate, String paymentMethod) {
+    public Renting(String rentingID, Date checkInDate, Date checkOutDate, String paymentMethod) {
         this.rentingID = rentingID;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -28,19 +25,19 @@ public class Renting {
         this.rentingID = rentingID;
     }
 
-    public String getCheckInDate() {
+    public Date getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(String checkInDate) {
+    public void setCheckInDate(Date checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public String getCheckOutDate() {
+    public Date getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(String checkOutDate) {
+    public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
