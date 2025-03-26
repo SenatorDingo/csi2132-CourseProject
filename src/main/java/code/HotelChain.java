@@ -1,12 +1,9 @@
 package code;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class HotelChain {
-    private String chainName;
+    private static String chainName;
     private String Address;
     private int numHotels;
     private String email;
@@ -65,6 +62,7 @@ public class HotelChain {
 
     public static void getAllHotelChains(){
 
+
         if (connection == null) {
             System.out.println("Failed to establish database connection.");
             return;
@@ -88,8 +86,49 @@ public class HotelChain {
             Connectiondb.closeConnection(connection);
         }
     }
-    public static void main(String[] args){
-        getAllHotelChains();
+
+
+    public ArrayList<Hotel> getAllHotelsBasedOnChain(String cN){
+        ArrayList<Hotel> hotelsBasedOnChianName = new ArrayList<>();
+        //making sure connection is active to use
+        if (connection == null) {
+            System.out.println("Failed to establish database connection.");
+            return null;
+        }
+        //query to get hotels from hotelChaons
+        String query = "SELECT * FROM hotel h JOIN owns o ON h.id = o.hotelID WHERE o.chainName = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            //using hte cN to replace the ? in the sql querey
+             statement.setString(1, cN);
+             try(ResultSet resultSet = statement.executeQuery()) {
+
+                 //creating the hotel objects
+            while (resultSet.next()) {
+                hotelsBasedOnChianName.add(new Hotel(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("address"),
+                        resultSet.getString("email"),
+                        (int) resultSet.getLong("phone"),
+                        resultSet.getInt("numRooms"),
+                        resultSet.getString("category")
+                        ));
+
+            }}
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connectiondb.closeConnection(connection);
+        }
+        //for testing purposes
+        for (Hotel hotel : hotelsBasedOnChianName) {
+            System.out.println(hotel.toString());
+        }
+        return hotelsBasedOnChianName;
+
+
     }
     //toString method
     @Override
@@ -111,5 +150,9 @@ public class HotelChain {
                 "<li> phone=" + phone +"</li>";
     }
 
+    public static void main(String[] args){
+        //getAllHotelsBasedOnChain("Holiday Inn");
+        //getAllHotelChains();
+    }
 
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Hotel {
     private String id;
@@ -112,8 +113,47 @@ public class Hotel {
 
     }
 
+    public static ArrayList<Room> getAllRooms(String hotelID){
+        if (connection == null) {
+            System.out.println("Failed to establish database connection.");
+            return null;
+        }
+        ArrayList<Room> allRooms = new ArrayList<>();
+
+        String query = "SELECT * FROM room Where hotelId = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setString(1, hotelID);
+            try(ResultSet rs = statement.executeQuery()){
+                while (rs.next()){
+                    allRooms.add(
+                            new Room(
+                                    rs.getString("hotelID"),
+                                    rs.getInt("roomNumber"),
+                                    rs.getInt("capacity"),
+                                    rs.getInt("price"),
+                                    rs.getString("view"),
+                                    rs.getString("amenity"),
+                                    rs.getBoolean("knownIssues"),
+                                    rs.getBoolean("extendable")
+                            )
+                    );
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            Connectiondb.closeConnection(connection);
+        }
+       return allRooms;
+    }
+
+
+
     public static void main(String[] args){
-        getAllHotels();
+        getAllRooms("1");
     }
 
 

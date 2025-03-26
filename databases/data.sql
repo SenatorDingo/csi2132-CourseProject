@@ -295,10 +295,8 @@ VALUES ('1', 101, 2, 100.0, 'mountainView', 'tv', false, true),
        ('7', 702, 3, 125.0, 'oceanView', 'microwave', true, false),
        ('7', 703, 2, 95.0, 'both', 'airCondition', false, true),
        ('7', 704, 4, 140.0, 'neither', 'fridge', true, false),
-       ('7', 705, 1, 80.0, 'mountainView', 'heating', false, false);
-
-INSERT INTO room (hotelID, roomNumber, capacity, price, view, amenity, knownIssues, extendable)
-VALUES ('8', 801, 2, 110.0, 'oceanView', 'tv', false, true),
+       ('7', 705, 1, 80.0, 'mountainView', 'heating', false, false),
+       ('8', 801, 2, 110.0, 'oceanView', 'tv', false, true),
        ('8', 802, 3, 130.0, 'both', 'fridge', true, false),
        ('8', 803, 2, 95.0, 'neither', 'heating', false, true),
        ('8', 804, 4, 140.0, 'mountainView', 'microwave', false, true),
@@ -342,9 +340,8 @@ VALUES ('8', 801, 2, 110.0, 'oceanView', 'tv', false, true),
        ('16', 1602, 3, 125.0, 'mountainView', 'fridge', true, false),
        ('16', 1603, 2, 100.0, 'both', 'microwave', true, true),
        ('16', 1604, 4, 130.0, 'neither', 'airCondition', false, true),
-       ('16', 1605, 1, 80.0, 'oceanView', 'heating', false, false);
-INSERT INTO room (hotelID, roomNumber, capacity, price, view, amenity, knownIssues, extendable)
-VALUES ('16', 1606, 2, 105.0, 'mountainView', 'tv', true, false),
+       ('16', 1605, 1, 80.0, 'oceanView', 'heating', false, false),
+       ('16', 1606, 2, 105.0, 'mountainView', 'tv', true, false),
        ('16', 1607, 3, 120.0, 'oceanView', 'microwave', false, true),
        ('16', 1608, 2, 95.0, 'both', 'heating', true, false),
        ('16', 1609, 4, 135.0, 'neither', 'airCondition', false, true),
