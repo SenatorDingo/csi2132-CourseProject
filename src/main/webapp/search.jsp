@@ -4,6 +4,45 @@
 <head>
     <title>Search Rooms</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .stars {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .stars input:checked ~ label {
+            color: gold;
+        }
+
+        .stars input:hover ~ label {
+            color: gold;
+        }
+
+        .stars input:checked:hover ~ label,
+        .stars input:hover:checked ~ label {
+            color: gold;
+        }
+
+        .stars input:nth-of-type(1):checked ~ label:nth-of-type(1),
+        .stars input:nth-of-type(2):checked ~ label:nth-of-type(2),
+        .stars input:nth-of-type(3):checked ~ label:nth-of-type(3),
+        .stars input:nth-of-type(4):checked ~ label:nth-of-type(4),
+        .stars input:nth-of-type(5):checked ~ label:nth-of-type(5) {
+            color: gold;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container mt-5">
@@ -28,6 +67,7 @@
                 <input type="radio" name="view" value="neither" id="neither">
                 <label for="neither">Neither</label><br>
             </div>
+
             <div class="mb-3">
                 <label class="amenity">Amenity:</label><br>
                 <input type="radio" name="amenity" value="tv" id="tv">
@@ -44,13 +84,46 @@
 
                 <input type="radio" name="airCondition" value="airCondition" id="airCondition">
                 <label for="airCondition">Air Condition</label><br>
-
             </div>
 
             <div class="mb-3">
                 <label for="maxPrice" class="form-label">Max Price ($):</label>
                 <input type="number" name="maxPrice" id="maxPrice" class="form-control" placeholder="Enter maximum price">
             </div>
+
+            <div class="mb-3">
+                <label for="hotelChain" class="form-label">Hotel Chain:</label>
+                <select name="hotelChain" id="hotelChain" class="form-control">
+                    <option value="">Select Hotel Chain</option>
+                    <option value="Holiday Inn">Holiday Inn</option>
+                    <option value="Best Western">Best Western</option>
+                    <option value="Swiss Hotel">Swiss Hotel</option>
+                    <option value="Hilton Garden Inn">Hilton Garden Inn</option>
+                    <option value="Double Tree">Double Tree</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                    <label for="category" class="form-label">Hotel Category:</label>
+                    <select name="category" id="category" class="form-control">
+                        <option value="" selected>Select Category</option>
+                        <option value="Motel">Motel</option>
+                        <option value="Business">Business</option>
+                        <option value="Airport">Airport</option>
+                        <option value="Hotel">Hotel</option>
+                    </select>
+                </div>
+
+            <div class="mb-3">
+                <label for="checkInDate" class="form-label">Check-In Date:</label>
+                <input type="date" name="checkInDate" id="checkInDate" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="checkOutDate" class="form-label">Check-Out Date:</label>
+                <input type="date" name="checkOutDate" id="checkOutDate" class="form-control">
+            </div>
+
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>

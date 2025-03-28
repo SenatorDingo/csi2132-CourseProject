@@ -1,5 +1,7 @@
-package code;
+package code.Servlets;
 
+import code.Room;
+import code.dataAccessObjects.RoomDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,13 +12,20 @@ import java.util.List;
 
 @WebServlet("/RoomSearchServlet")
 public class RoomSearchServlet extends HttpServlet {
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String capacity = request.getParameter("capacity");
         String view = request.getParameter("view");
         String amenity = request.getParameter("amenity");
         String maxPrice = request.getParameter("maxPrice");
+        String hotelChain = request.getParameter("hotelChain");
+        String category = request.getParameter("category");
+        String checkInDate = request.getParameter("checkInDate");
+        String checkOutDate = request.getParameter("checkOutDate");
 
-        List<Room> rooms = RoomDAO.searchRooms(capacity, view, amenity, maxPrice);
+        List<Room> rooms = RoomDAO.searchRooms(capacity, view, amenity, maxPrice, hotelChain, category, checkInDate, checkOutDate);
+
         request.setAttribute("rooms", rooms);
         request.getRequestDispatcher("search-results.jsp").forward(request, response);
     }

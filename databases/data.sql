@@ -7,7 +7,7 @@ CREATE TABLE hotelChain
     phone     BIGINT CHECK (phone >= 100000000 AND phone <= 9999999999)
 );
 
---enum used for hotels 
+--enum used for hotels
 CREATE TYPE categoryHotel AS ENUM ('Motel', 'Business', 'Airport', 'Hotel');
 
 CREATE TABLE hotel
@@ -78,6 +78,11 @@ CREATE TABLE booking
 (
     bookingID VARCHAR(50) PRIMARY KEY
 );
+
+ALTER TABLE booking
+ADD COLUMN checkInDate DATE NOT NULL,
+ADD COLUMN checkOutDate DATE NOT NULL;
+
 CREATE TABLE renting
 (
     rentingID     VARCHAR(50) PRIMARY KEY,
@@ -200,7 +205,7 @@ CREATE TABLE checkInWithOutBooking
 );
 
 --populating the database
---5 hotelsChains 
+--5 hotelsChains
 INSERT INTO hotelChain (chainName, address, numHotels, email, phone)
 VALUES ('Holiday Inn', '123 Sparks Street', 8, 'h.inn@holiday.com', 6470013636),
        ('Best Western', '425 Bronson Avenue', 8, 'b.western@bestwestern.ca', 8765439211),
@@ -591,6 +596,26 @@ VALUES ('1'),
        ('4'),
        ('5');
 
+UPDATE booking
+SET checkInDate = '2025-04-01', checkOutDate = '2025-04-05'
+WHERE bookingID = '1';
+
+UPDATE booking
+SET checkInDate = '2025-04-10', checkOutDate = '2025-04-15'
+WHERE bookingID = '2';
+
+UPDATE booking
+SET checkInDate = '2025-05-01', checkOutDate = '2025-05-05'
+WHERE bookingID = '3';
+
+UPDATE booking
+SET checkInDate = '2025-05-10', checkOutDate = '2025-05-15'
+WHERE bookingID = '4';
+
+UPDATE booking
+SET checkInDate = '2025-06-01', checkOutDate = '2025-06-05'
+WHERE bookingID = '5';
+
 INSERT INTO renting (RentingID, checkInDate, checkOutDate, paymentMethod)
 VALUES ('1', '2025-03-01', '2025-03-05', 'Credit'),
        ('2', '2025-03-03', '2025-03-07', 'Debit'),
@@ -838,11 +863,6 @@ VALUES ('C006', 'E075'),
 
 
 
-	
-	
-
-
-	
 
 
 
@@ -850,11 +870,16 @@ VALUES ('C006', 'E075'),
 
 
 
-	
-	
-		
-		
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
