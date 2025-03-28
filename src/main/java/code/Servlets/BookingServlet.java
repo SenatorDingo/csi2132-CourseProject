@@ -38,7 +38,7 @@ public class BookingServlet extends HttpServlet {
                 response.sendRedirect("booking-failure.jsp");
             }
         } catch (ParseException e) {
-            
+
             e.printStackTrace();
             response.sendRedirect("error.jsp"); // Redirect to an error page
         }
