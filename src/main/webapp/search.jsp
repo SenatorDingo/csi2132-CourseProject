@@ -13,14 +13,40 @@
                 <label for="capacity" class="form-label">Room Capacity:</label>
                 <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter capacity">
             </div>
+
             <div class="mb-3">
-                <label for="view" class="form-label">View:</label>
-                <input type="text" name="view" id="view" class="form-control" placeholder="E.g., Sea, City, Mountain">
+                <label class="view">View:</label><br>
+                <input type="radio" name="view" value="mountainView" id="mountainView">
+                <label for="mountainView">Mountain View</label><br>
+
+                <input type="radio" name="view" value="oceanView" id="oceanView">
+                <label for="oceanView">Ocean View</label><br>
+
+                <input type="radio" name="view" value="both" id="both">
+                <label for="both">Both</label><br>
+
+                <input type="radio" name="view" value="neither" id="neither">
+                <label for="neither">Neither</label><br>
             </div>
             <div class="mb-3">
-                <label for="amenity" class="form-label">Amenity:</label>
-                <input type="text" name="amenity" id="amenity" class="form-control" placeholder="E.g., WiFi, Pool, Gym">
+                <label class="amenity">Amenity:</label><br>
+                <input type="radio" name="amenity" value="tv" id="tv">
+                <label for="tv">TV</label><br>
+
+                <input type="radio" name="amenity" value="fridge" id="fridge">
+                <label for="fridge">Fridge</label><br>
+
+                <input type="radio" name="amenity" value="heating" id="heating">
+                <label for="heating">Heating</label><br>
+
+                <input type="radio" name="microwave" value="microwave" id="microwave">
+                <label for="microwave">Microwave</label><br>
+
+                <input type="radio" name="airCondition" value="airCondition" id="airCondition">
+                <label for="airCondition">Air Condition</label><br>
+
             </div>
+
             <div class="mb-3">
                 <label for="maxPrice" class="form-label">Max Price ($):</label>
                 <input type="number" name="maxPrice" id="maxPrice" class="form-control" placeholder="Enter maximum price">
