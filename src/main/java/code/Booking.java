@@ -1,8 +1,5 @@
 package code;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Booking {
 
@@ -10,6 +7,43 @@ public class Booking {
 
 
     private String id;
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
+    public void setCheckInDate(Date checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public void setCheckOutDate(Date checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
+
+    private String customerID;
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public Booking(String id, String customerID, Date checkInDate, Date checkOutDate) {
+        this.id = id;
+        this.customerID = customerID;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
+
+    private Date checkInDate;
+    private Date checkOutDate;
+
     static Connection connection = Connectiondb.getConnection();
 
     public Booking(String id) {

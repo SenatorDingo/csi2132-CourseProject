@@ -26,7 +26,9 @@
     <div class="container mt-5 text-center">
         <h1>Welcome to the Hotel Booking System</h1>
         <p>Find and book your perfect room with ease.</p>
-        <a href="search.jsp" class="btn btn-primary">Search for Rooms</a>
+<%--        <a href="search.jsp" class="btn btn-primary">Search for Rooms</a>--%>
+        <a href="customer-login.jsp" class="btn btn-primary">Customer</a>
+        <a href="employee-login.jsp" class="btn btn-primary">Employee</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

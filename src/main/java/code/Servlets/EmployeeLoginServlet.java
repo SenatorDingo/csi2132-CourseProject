@@ -1,6 +1,6 @@
 package code.Servlets;
 
-import code.dataAccessObjects.CustomerDAO;
+import code.dataAccessObjects.EmployeeDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,17 +8,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
-@WebServlet("/CustomerLoginServlet")
-public class CustomerLoginServlet extends HttpServlet {
-    @Override
+@WebServlet("/EmployeeLoginServlet")
+public class EmployeeLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String customerID = request.getParameter("customerID");
+        //getting the data from the front end
+        String employeeID = request.getParameter("employeeID");
 
-        boolean isValid = CustomerDAO.validateCustomer(customerID);
+        EmployeeDAO dao = new EmployeeDAO();
 
-        if (isValid) {
-            response.sendRedirect("search.jsp");
+        boolean exists = dao.checkEmployeeExists(employeeID);
+        if (exists) {
+            response.sendRedirect("CheckIn.jsp");
         } else {
             response.sendRedirect("booking-failure.jsp");
         }
