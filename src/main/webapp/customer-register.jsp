@@ -32,14 +32,7 @@
                         <label for="fullName" class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="fullName" name="fullName" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
+
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" required>
@@ -52,11 +45,9 @@
                             <option value="Driver's License">Driver's License</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="idNumber" class="form-label">ID Number</label>
-                        <input type="text" class="form-control" id="idNumber" name="idNumber" required>
-                    </div>
+<%--                    send the id thougtht he paraemters of hte button --%>
                     <button type="submit" class="btn btn-success w-100">Register</button>
+
                 </form>
                 <div class="text-center mt-3">
                     <a href="customer-login.jsp">Already have an account? Login here</a>

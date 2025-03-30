@@ -10,17 +10,22 @@ public class CustomerDAO {
     private static final Connection connection = Connectiondb.getConnection();
 
     public static boolean addCustomer(Customer customer) {
-        String query = "INSERT INTO customer (customerID, name, idType, dateOfRegistration, address) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, customer.getCustomerID());
-            statement.setString(2, customer.getName());
-            statement.setString(3, customer.getIdType());
-            statement.setDate(4, customer.getDateOfRegistration());
-            statement.setString(5, customer.getAddress());
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+            String query = "INSERT INTO customer (customerID, name, idType, dateOfRegistration, address) VALUES (?, ?,?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, customer.getCustomerID());
+                statement.setString(2, customer.getName());
+                statement.setString(3, customer.getIdType());
+                statement.setDate(4, customer.getDateOfRegistration());
+                statement.setString(5, customer.getAddress());
+
+                return statement.executeUpdate() > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+
         return false;
     }
 
@@ -34,7 +39,6 @@ public class CustomerDAO {
                         resultSet.getString("customerID"),
                         resultSet.getString("name"),
                         resultSet.getString("idType"),
-                        resultSet.getDate("dateOfRegistration"),
                         resultSet.getString("address")
                 );
             }
@@ -54,7 +58,6 @@ public class CustomerDAO {
                         resultSet.getString("customerID"),
                         resultSet.getString("name"),
                         resultSet.getString("idType"),
-                        resultSet.getDate("dateOfRegistration"),
                         resultSet.getString("address")
                 ));
             }

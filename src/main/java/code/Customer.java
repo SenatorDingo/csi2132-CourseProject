@@ -9,11 +9,11 @@ public class Customer {
     private Date dateOfRegistration;
     private String address;
 
-    public Customer(String customerID, String name, String idType, Date dateOfRegistration, String address) {
+    public Customer(String customerID, String name, String idType, String address) {
         this.customerID = customerID;
         this.name = name;
         this.idType = idType;
-        this.dateOfRegistration = dateOfRegistration;
+        this.dateOfRegistration = new Date(System.currentTimeMillis());
         this.address = address;
     }
 

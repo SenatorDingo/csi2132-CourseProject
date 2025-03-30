@@ -10,25 +10,25 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet("/register")
+@WebServlet("/CustomerRegisterServlet")
 public class CustomerRegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String customerID = request.getParameter("customerID");
-        String name = request.getParameter("name");
+        String name = request.getParameter("fullName");
         String idType = request.getParameter("idType");
         String address = request.getParameter("address");
-        Date dateOfRegistration = new Date(System.currentTimeMillis());
 
-        Customer customer = new Customer(customerID, name, idType, dateOfRegistration, address);
+
+        String customerID = java.util.UUID.randomUUID().toString();
+
+        Customer customer = new Customer(customerID, name, idType, address);
         boolean success = CustomerDAO.addCustomer(customer);
 
         if (success) {
-            response.sendRedirect("registerSuccess.jsp");
+            response.sendRedirect("search.jsp");
         } else {
-            response.sendRedirect("registerFail.jsp");
+            response.sendRedirect("booking-failure.jsp");
         }
     }
 }
-
 
