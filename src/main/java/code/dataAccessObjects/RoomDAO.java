@@ -14,9 +14,12 @@ public class RoomDAO {
                                          String hotelChain, String category, String checkInDate, String checkOutDate) {
 
         List<Room> rooms = new ArrayList<>();
-        StringBuilder query = new StringBuilder("SELECT r.hotelID, r.roomNumber, r.capacity, r.price, r.view, r.amenity, r.knownIssues, r.extendable ");
+
+        StringBuilder query = new StringBuilder("SELECT r.hotelID, r.roomNumber, r.capacity, r.price, r.view, r.amenity, r.knownIssues, r.extendable, h.category, o.chainName ");
         query.append("FROM room r ");
         query.append("JOIN hotel h ON r.hotelID = h.id ");
+        query.append("JOIN owns o ON h.id = o.hotelID ");
+        query.append("WHERE 1=1 ");
 
         if (capacity != null && !capacity.isEmpty()) {
             query.append("AND r.capacity = ").append(capacity).append(" ");
@@ -31,16 +34,28 @@ public class RoomDAO {
             query.append("AND r.price <= ").append(maxPrice).append(" ");
         }
         if (hotelChain != null && !hotelChain.isEmpty()) {
-            query.append("AND h.chainName = '").append(hotelChain).append("' ");
+            query.append("AND o.chainName = '").append(hotelChain).append("' ");
         }
         if (category != null && !category.isEmpty()) {
             query.append("AND h.category = '").append(category).append("' ");
         }
+
+        // Exclude rooms that are already booked
         if (checkInDate != null && !checkInDate.isEmpty() && checkOutDate != null && !checkOutDate.isEmpty()) {
-            query.append("AND r.roomNumber NOT IN (SELECT r.roomNumber FROM booking b ");
-            query.append("JOIN reserves res ON b.bookingID = res.bookingID ");
+            query.append("AND r.roomNumber NOT IN ( ");
+            query.append("SELECT res.roomNumber FROM reserves res ");
+            query.append("JOIN booking b ON res.bookingID = b.bookingID ");
             query.append("WHERE b.checkInDate <= '").append(checkOutDate).append("' ");
             query.append("AND b.checkOutDate >= '").append(checkInDate).append("') ");
+        }
+
+        // Exclude rooms that are already rented
+        if (checkInDate != null && !checkInDate.isEmpty() && checkOutDate != null && !checkOutDate.isEmpty()) {
+            query.append("AND r.roomNumber NOT IN ( ");
+            query.append("SELECT occ.roomNumber FROM occupies occ ");
+            query.append("JOIN renting rent ON occ.rentingID = rent.rentingID ");
+            query.append("WHERE rent.checkInDate <= '").append(checkOutDate).append("' ");
+            query.append("AND rent.checkOutDate >= '").append(checkInDate).append("') ");
         }
 
         logger.info("SQL Query: " + query.toString());

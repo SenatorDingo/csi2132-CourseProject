@@ -589,32 +589,16 @@ VALUES ('E001', '111-22-3333', 'John', 'Doe', 'A', '123 Elm St, Springfield', 'c
        ('E100', '306-66-1816', 'Ethan', 'Russell', 'J', '2242 Reed St, Auroraville', 'bellBoy');
 
 
-INSERT INTO booking (bookingID)
-VALUES ('1'),
-       ('2'),
-       ('3'),
-       ('4'),
-       ('5');
-
-UPDATE booking
-SET checkInDate = '2025-04-01', checkOutDate = '2025-04-05'
-WHERE bookingID = '1';
-
-UPDATE booking
-SET checkInDate = '2025-04-10', checkOutDate = '2025-04-15'
-WHERE bookingID = '2';
-
-UPDATE booking
-SET checkInDate = '2025-05-01', checkOutDate = '2025-05-05'
-WHERE bookingID = '3';
-
-UPDATE booking
-SET checkInDate = '2025-05-10', checkOutDate = '2025-05-15'
-WHERE bookingID = '4';
-
-UPDATE booking
-SET checkInDate = '2025-06-01', checkOutDate = '2025-06-05'
-WHERE bookingID = '5';
+INSERT INTO booking (bookingID, checkInDate, checkOutDate)
+VALUES
+    ('1', '2025-04-01', '2025-04-05'),
+    ('2', '2025-04-10', '2025-04-15'),
+    ('3', '2025-05-01', '2025-05-05'),
+    ('4', '2025-05-10', '2025-05-15'),
+    ('5', '2025-06-01', '2025-06-05')
+ON CONFLICT (bookingID) DO UPDATE SET
+    checkInDate = EXCLUDED.checkInDate,
+    checkOutDate = EXCLUDED.checkOutDate;
 
 INSERT INTO renting (RentingID, checkInDate, checkOutDate, paymentMethod)
 VALUES ('1', '2025-03-01', '2025-03-05', 'Credit'),
