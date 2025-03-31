@@ -101,9 +101,32 @@ public class RentingDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Log the exception
+            e.printStackTrace();
         }
         return rentings; // Return the list of rentings
     }
+
+    public static boolean removeRenting(String rentingID) {
+        String deleteOccupiesSQL = "DELETE FROM occupies WHERE rentingID = ?";
+        String deleteRentingSQL = "DELETE FROM renting WHERE rentingID = ?";
+
+        try (Connection connection = Connectiondb.getConnection();
+             PreparedStatement deleteOccupiesStmt = connection.prepareStatement(deleteOccupiesSQL);
+             PreparedStatement deleteRentingStmt = connection.prepareStatement(deleteRentingSQL)) {
+
+            connection.setAutoCommit(false);
+
+            deleteRentingStmt.setString(1, rentingID);
+            int affectedRows = deleteRentingStmt.executeUpdate();
+
+            connection.commit();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            logger.severe("Error in removeRenting: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 
