@@ -74,6 +74,8 @@
             <th>Booking ID</th>
             <th>Check-in Date</th>
             <th>Check-out Date</th>
+            <th>Check In</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -84,6 +86,10 @@
             <td><%= booking.getBookingID() %></td>
             <td><%= booking.getCheckInDate() %></td>
             <td><%= booking.getCheckOutDate() %></td>
+<%--            change these parameteres--%>
+            <td><a href="CheckIn.jsp?book=<%= booking.getBookingID() %>" class="back-button">Check In</a></td>
+            <td><a href="edit-bookings.jsp?book=<%= booking.getBookingID() %>&employeeID=<%= request.getAttribute("employeeID") %>" class="back-button">Edit</a></td>
+
         </tr>
         <%
             }
@@ -93,7 +99,7 @@
     <%
         }
     %>
-    <a href="#" class="back-button">Back</a>
+    <a href="index.jsp" class="back-button">Back</a>
 </div>
 </body>
 </html>

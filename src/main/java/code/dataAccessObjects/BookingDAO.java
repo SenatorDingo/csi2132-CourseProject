@@ -2,6 +2,8 @@ package code.dataAccessObjects;
 
 import code.Booking;
 import code.Connectiondb;
+import code.Room;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,32 @@ import java.util.logging.Logger;
 
 public class BookingDAO {
     private static final Logger logger = Logger.getLogger(BookingDAO.class.getName());
+
+    public static Booking getBookingBasedOnID(String bookingID) {
+        Booking b = null;
+        String sql = "SELECT bookingID, checkInDate, checkOutDate FROM booking WHERE bookingID = ?";
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, bookingID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+
+                     b = new Booking(
+                             rs.getString("bookingID"),
+                             rs.getDate("checkInDate"),
+                             rs.getDate("checkOutDate")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return b;
+    }
+
 
     public List<Booking> getAllBookings() {
         List<Booking> bookings = new ArrayList<>();
@@ -179,14 +207,15 @@ public class BookingDAO {
         return false;
     }
 
-    public boolean updateBooking(String bookingID, Date checkInDate, Date checkOutDate) {
+    public static boolean updateBooking(String bookingID, Date checkInDate, Date checkOutDate) {
         String sql = "UPDATE booking SET checkInDate = ?, checkOutDate = ? WHERE bookingID = ?";
         try (Connection conn = Connectiondb.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, bookingID);
-            pstmt.setDate(2, (java.sql.Date) checkInDate);
-            pstmt.setDate(3, (java.sql.Date) checkOutDate);
+
+            pstmt.setDate(1, (java.sql.Date) checkInDate);
+            pstmt.setDate(2, (java.sql.Date) checkOutDate);
+            pstmt.setString(3, bookingID);
 
             int rowsAffected = pstmt.executeUpdate();
 
