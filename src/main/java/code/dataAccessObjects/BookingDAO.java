@@ -184,7 +184,7 @@ public class BookingDAO {
         return false;
     }
 
-    public boolean deleteBooking(String bookingID) {
+    public static boolean deleteBooking(String bookingID) {
         String sql = "DELETE FROM booking WHERE bookingID = ?";
         try (Connection conn = Connectiondb.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
