@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/RoomSearchServlet")
 public class RoomSearchServlet extends HttpServlet {
@@ -23,10 +24,14 @@ public class RoomSearchServlet extends HttpServlet {
         String category = request.getParameter("category");
         String checkInDate = request.getParameter("checkInDate");
         String checkOutDate = request.getParameter("checkOutDate");
+        String customerID = request.getParameter("customerID");
 
         List<Room> rooms = RoomDAO.searchRooms(capacity, view, amenity, maxPrice, hotelChain, category, checkInDate, checkOutDate);
 
         request.setAttribute("rooms", rooms);
+
+        request.setAttribute("customerID", customerID);
+        System.out.println(Objects.equals(customerID, "null"));
         request.getRequestDispatcher("search-results.jsp").forward(request, response);
     }
 }

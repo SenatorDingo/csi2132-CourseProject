@@ -41,8 +41,9 @@
                         <label for="idType" class="form-label">ID Type</label>
                         <select class="form-select" id="idType" name="idType">
                             <option value="SSN">SSN</option>
-                            <option value="SIN">SIN</option>
-                            <option value="Driver's License">Driver's License</option>
+                            <option value="photoCard">Photo Card</option>
+                            <option value="driversLicence">Driver's License</option>
+                            <option value="passport">Passport</option>
                         </select>
                     </div>
 <%--                    send the id thougtht he paraemters of hte button --%>

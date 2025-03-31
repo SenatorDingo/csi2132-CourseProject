@@ -10,6 +10,23 @@
 </head>
 <body>
     <div class="container mt-5">
+        <%
+            String customerID = (String) request.getAttribute("customerID");
+            if (!"null".equals(customerID) && customerID != null && !customerID.isEmpty()) {
+        %>
+                <div class="alert alert-info">
+                    Logged in as Customer ID: <%= customerID %>
+                </div>
+        <%
+            } else {
+        %>
+                <div class="alert alert-warning">
+                    Not logged in.
+                </div>
+        <%
+            }
+        %>
+
         <h2>Room Search Results</h2>
         <div id="resultsContainer">
             <%
@@ -24,8 +41,20 @@
                     <p class="card-text">View: <%= room.getView() %></p>
                     <p class="card-text">Amenity: <%= room.getAmenity() %></p>
                     <p class="card-text">Price: $<%= room.getPrice() %> per night</p>
-                    <a href="booking.jsp?roomId=<%= room.getId() %>" class="btn btn-success">Book Now</a>
+                    <%
+                    String customerId = request.getParameter("customerID");
+                    if ("null".equals(customerId)) {
+                    %>
+                        <a href="customer-register.jsp" class="btn btn-warning">Log In</a>
+                    <%
+                    } else {
+                    %>
+                        <a href="booking.jsp?roomNumber=<%= room.getRoomNumber() %>&customerID=<%= customerId %>&hotelID=<%= room.getId() %>" class="btn btn-success">Book Now</a>
+                    <%
+                    }
+                    %>
                 </div>
+
             </div>
             <%
                     }

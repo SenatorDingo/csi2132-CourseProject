@@ -9,7 +9,11 @@
 <div class="container mt-5">
     <h2>Confirm Your Booking</h2>
     <form action="BookingServlet" method="post">
-        <input type="hidden" name="roomId" value="<%= request.getParameter("roomId") %>"> <!-- Room ID from the URL -->
+        <input type="hidden" name="roomNumber" value="<%= request.getParameter("roomNumber") %>">
+        <input type="hidden" name="customerID" value="<%= request.getParameter("customerID") %>">
+        <input type="hidden" name="hotelID" value="<%= request.getParameter("hotelID") %>">
+
+
 
         <div class="mb-3">
             <label for="checkInDate" class="form-label">Check-In Date</label>

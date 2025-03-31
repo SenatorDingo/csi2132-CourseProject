@@ -18,7 +18,7 @@ public class CustomerLoginServlet extends HttpServlet {
         boolean isValid = CustomerDAO.validateCustomer(customerID);
 
         if (isValid) {
-            response.sendRedirect("search.jsp");
+            response.sendRedirect("search.jsp?customerID=" + customerID + "&registered=false");
         } else {
             response.sendRedirect("booking-failure.jsp");
         }

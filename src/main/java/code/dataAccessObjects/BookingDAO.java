@@ -41,9 +41,7 @@ public class BookingDAO {
         return bookings;
     }
 
-    public static boolean addBooking(Date checkInDate, Date checkOutDate) {
-
-        String bookingId = UUID.randomUUID().toString();
+    public static boolean addBooking(String bookingId, Date checkInDate, Date checkOutDate) {
 
 
         String sql = "INSERT INTO booking (bookingid, checkInDate, checkOutDate) VALUES (?, ?, ?)";
@@ -69,7 +67,6 @@ public class BookingDAO {
             }
 
         } catch (SQLException e) {
-            // Log exception for debugging
             logger.severe("SQL Exception while adding booking: " + e.getMessage());
             e.printStackTrace();
             return false;
@@ -77,4 +74,51 @@ public class BookingDAO {
         return false;
     }
 
+    public static boolean addReservation(String bookingId, String hotelID, int roomNumber) {
+        String sql = "INSERT INTO reserves (roomNumber, bookingID, hotelID) VALUES (?, ?, ?)";
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomNumber);
+            pstmt.setString(2, bookingId);
+            pstmt.setString(3, hotelID);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                logger.info("Reservation successfully added for booking ID: " + bookingId);
+                return true;
+            }
+
+        } catch (SQLException e) {
+            logger.severe("SQL Exception while adding reservation: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean addOnlineBooking(String bookingId, String customerId) {
+        String sql = "INSERT INTO onlineBook (bookingID, customerID) VALUES (?, ?)";
+
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, bookingId);
+            pstmt.setString(2, customerId);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                logger.info("Online booking successfully added for booking ID: " + bookingId);
+                return true;
+            }
+
+        } catch (SQLException e) {
+            logger.severe("SQL Exception while adding online booking: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
 }

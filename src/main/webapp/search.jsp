@@ -41,13 +41,34 @@
         .stars input:nth-of-type(5):checked ~ label:nth-of-type(5) {
             color: gold;
         }
-    </style>
 
+        .banner {
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
+        <%
+            String customerID = request.getParameter("customerID");
+            String registered = request.getParameter("registered");
+            if (customerID != null && registered != null) {
+                String message = "true".equals(registered) ? "Registration Successful. Logged in as Customer ID: " + customerID : "Login Successful. Logged in as Customer ID: " + customerID;
+        %>
+                <div class="banner">
+                    <%= message %>
+                </div>
+        <%
+            }
+        %>
         <h2 class="mb-4">Search for a Room</h2>
         <form action="RoomSearchServlet" method="POST">
+            <input type="hidden" name="customerID" value="<%= customerID %>">
             <div class="mb-3">
                 <label for="capacity" class="form-label">Room Capacity:</label>
                 <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter capacity">
@@ -104,15 +125,15 @@
             </div>
 
             <div class="mb-3">
-                    <label for="category" class="form-label">Hotel Category:</label>
-                    <select name="category" id="category" class="form-control">
-                        <option value="" selected>Select Category</option>
-                        <option value="Motel">Motel</option>
-                        <option value="Business">Business</option>
-                        <option value="Airport">Airport</option>
-                        <option value="Hotel">Hotel</option>
-                    </select>
-                </div>
+                <label for="category" class="form-label">Hotel Category:</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="" selected>Select Category</option>
+                    <option value="Motel">Motel</option>
+                    <option value="Business">Business</option>
+                    <option value="Airport">Airport</option>
+                    <option value="Hotel">Hotel</option>
+                </select>
+            </div>
 
             <div class="mb-3">
                 <label for="checkInDate" class="form-label">Check-In Date:</label>

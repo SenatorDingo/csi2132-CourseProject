@@ -13,6 +13,7 @@ import code.dataAccessObjects.BookingDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
@@ -21,6 +22,9 @@ public class BookingServlet extends HttpServlet {
 
         String checkInDateStr = request.getParameter("checkInDate");
         String checkOutDateStr = request.getParameter("checkOutDate");
+        String customerID = request.getParameter("customerID");
+        String roomNumber = request.getParameter("roomNumber");
+        String hotelID = request.getParameter("hotelID");
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,8 +32,11 @@ public class BookingServlet extends HttpServlet {
             Date checkInDate = dateFormat.parse(checkInDateStr);
             Date checkOutDate = dateFormat.parse(checkOutDateStr);
 
+            String bookingId = UUID.randomUUID().toString();
 
-            boolean success = BookingDAO.addBooking(new java.sql.Date(checkInDate.getTime()), new java.sql.Date(checkOutDate.getTime()));
+            boolean success = BookingDAO.addBooking(bookingId, new java.sql.Date(checkInDate.getTime()), new java.sql.Date(checkOutDate.getTime())) &&
+            BookingDAO.addOnlineBooking(bookingId, customerID) &&
+            BookingDAO.addReservation(bookingId, hotelID, Integer.parseInt(roomNumber));
 
 
             if (success) {

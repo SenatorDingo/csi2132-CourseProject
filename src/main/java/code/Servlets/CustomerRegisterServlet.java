@@ -18,17 +18,17 @@ public class CustomerRegisterServlet extends HttpServlet {
         String idType = request.getParameter("idType");
         String address = request.getParameter("address");
 
-
         String customerID = java.util.UUID.randomUUID().toString();
 
         Customer customer = new Customer(customerID, name, idType, address);
         boolean success = CustomerDAO.addCustomer(customer);
 
         if (success) {
-            response.sendRedirect("search.jsp");
+            response.sendRedirect("search.jsp?customerID=" + customerID + "&registered=true");
         } else {
             response.sendRedirect("booking-failure.jsp");
         }
     }
+
 }
 
