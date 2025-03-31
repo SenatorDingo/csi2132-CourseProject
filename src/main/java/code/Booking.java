@@ -22,6 +22,7 @@ public class Booking {
 
     private String customerID;
 
+    public String getBookingID(){return this.id;}
     public String getCustomerID() {
         return customerID;
     }

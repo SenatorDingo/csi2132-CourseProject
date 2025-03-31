@@ -28,6 +28,7 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <form action="CustomerLoginServlet" method="post">
+                    <input type="hidden" name="origin" value="<%= request.getParameter("origin") %>">
                     <div class="mb-3">
                         <label for="customerID" class="form-label">Customer ID</label>
                         <input type="text" class="form-control" id="customerID" name="customerID" required>
@@ -41,6 +42,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

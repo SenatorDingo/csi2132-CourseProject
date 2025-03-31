@@ -14,13 +14,23 @@ public class CustomerLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String customerID = request.getParameter("customerID");
+        String origin = request.getParameter("origin");
 
         boolean isValid = CustomerDAO.validateCustomer(customerID);
 
         if (isValid) {
-            response.sendRedirect("search.jsp?customerID=" + customerID + "&registered=false");
+            if ("view-bookings".equals(origin)) {
+                if (customerID != null) {
+                    response.sendRedirect("ViewBookingServlet?customerID=" + customerID);
+                } else {
+                    response.sendRedirect("booking-failure.jsp");
+                }
+            } else {
+                response.sendRedirect("search.jsp?customerID=" + (customerID != null ? customerID : "") + "&registered=false");
+            }
         } else {
             response.sendRedirect("booking-failure.jsp");
         }
+
     }
 }

@@ -41,6 +41,43 @@ public class BookingDAO {
         return bookings;
     }
 
+    public Booking getCustomerBooking(String customerID) {
+        Booking booking = null;
+        String bookingIdQuery = "SELECT bookingID FROM onlineBook WHERE customerID = ?";
+        String bookingQuery = "SELECT * FROM booking WHERE bookingID = ?";
+
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement bookingIdStmt = conn.prepareStatement(bookingIdQuery)) {
+
+            bookingIdStmt.setString(1, customerID);
+            ResultSet bookingIdRs = bookingIdStmt.executeQuery();
+
+            if (bookingIdRs.next()) {
+                String bookingID = bookingIdRs.getString("bookingID");
+
+                try (PreparedStatement bookingStmt = conn.prepareStatement(bookingQuery)) {
+                    bookingStmt.setString(1, bookingID);
+                    ResultSet bookingRs = bookingStmt.executeQuery();
+
+                    if (bookingRs.next()) {
+                        booking = new Booking(
+                                bookingRs.getString("bookingID"),
+                                customerID,
+                                bookingRs.getDate("checkInDate"),
+                                bookingRs.getDate("checkOutDate")
+                        );
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe("SQL Exception while retrieving customer booking: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return booking;
+    }
+
+
     public static boolean addBooking(String bookingId, Date checkInDate, Date checkOutDate) {
 
 
