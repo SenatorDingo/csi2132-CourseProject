@@ -1,5 +1,6 @@
 package code.dataAccessObjects;
 
+import code.Booking;
 import code.Connectiondb;
 import code.Employee;
 import code.Room;
@@ -8,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeDAO {
     public static boolean addEmployee(Employee employee) {
@@ -51,5 +54,39 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static List<Booking> getBookingsForEmployee(String employeeID) {
+        List<Booking> bookings = new ArrayList<>();
+        String query = "SELECT DISTINCT b.bookingID, b.checkInDate, b.checkOutDate " +
+                "FROM booking b " +
+                "JOIN reserves r ON b.bookingID = r.bookingID " +
+                "JOIN hotel h ON r.hotelID = h.id " +
+                "JOIN employs e ON e.hotelID = h.id " +
+                "JOIN customer c ON b.bookingID = r.bookingID " +
+                "WHERE e.employeeID = E1";
+
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, employeeID); // Correctly setting the employee ID
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println("Booking ID Found: " + rs.getString("bookingID"));
+                    Booking booking = new Booking(
+                            rs.getString("bookingID"),
+                            rs.getDate("checkInDate"),
+                            rs.getDate("checkOutDate")
+                    );
+                    bookings.add(booking);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookings;
     }
 }

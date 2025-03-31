@@ -35,9 +35,8 @@ public class Booking {
         return checkOutDate;
     }
 
-    public Booking(String id, String customerID, Date checkInDate, Date checkOutDate) {
+    public Booking(String id, Date checkInDate, Date checkOutDate) {
         this.id = id;
-        this.customerID = customerID;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
     }

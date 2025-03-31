@@ -26,7 +26,6 @@ public class BookingDAO {
             while (rs.next()) {
                 Booking booking = new Booking(
                         rs.getString("id"),
-                        rs.getString("customer_id"),
                         rs.getDate("check_in_date"),
                         rs.getDate("check_out_date")
 
@@ -62,7 +61,6 @@ public class BookingDAO {
                     if (bookingRs.next()) {
                         booking = new Booking(
                                 bookingRs.getString("bookingID"),
-                                customerID,
                                 bookingRs.getDate("checkInDate"),
                                 bookingRs.getDate("checkOutDate")
                         );
