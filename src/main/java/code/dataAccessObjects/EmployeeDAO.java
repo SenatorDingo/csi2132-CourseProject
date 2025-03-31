@@ -1,9 +1,6 @@
 package code.dataAccessObjects;
 
-import code.Booking;
-import code.Connectiondb;
-import code.Employee;
-import code.Room;
+import code.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

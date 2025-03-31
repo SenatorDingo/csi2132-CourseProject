@@ -2,11 +2,11 @@ package code.dataAccessObjects;
 
 import code.Connectiondb;
 import code.PaymentType;
+import code.Renting;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -73,6 +73,37 @@ public class RentingDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    public static List<Renting> getRentingsForEmployee(String employeeID) {
+        List<Renting> rentings = new ArrayList<>();
+        String query = "SELECT r.* " +
+                "FROM renting r " +
+                "JOIN occupies o ON r.rentingID = o.rentingID " +
+                "JOIN room rm ON o.hotelID = rm.hotelID AND o.roomNumber = rm.roomNumber " +
+                "JOIN employs e ON rm.hotelID = e.hotelID " +
+                "WHERE e.employeeID = ?";
+        try (Connection conn = Connectiondb.getConnection(); // Replace with your DB connection method
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Set the employeeID parameter
+            stmt.setString(1, employeeID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Assuming Renting is a class that matches the columns in the renting table
+                    Renting renting = new Renting(
+                            rs.getString("rentingID"),
+                            rs.getDate("checkInDate"),
+                            rs.getDate("checkOutDate"),
+                            rs.getString("paymentMethod")
+                    );
+                    rentings.add(renting);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the exception
+        }
+        return rentings; // Return the list of rentings
     }
 }
 
