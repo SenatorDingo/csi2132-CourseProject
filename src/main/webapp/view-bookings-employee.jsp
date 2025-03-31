@@ -20,7 +20,7 @@
     <div class="container">
         <a class="navbar-brand">Hotel Management</a>
         <a href="index.jsp" class="btn btn-light">Home</a>
-        <a href="view-rentings-employee.jsp?employeeID=<%= employeeID %>" class="btn btn-light">Rentings</a>
+        <a href="ViewEmployeeRentingServlet?employeeID=<%= employeeID %>" class="btn btn-light">Rentings</a>
     </div>
 </nav>
 
