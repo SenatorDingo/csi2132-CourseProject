@@ -11,21 +11,19 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String middleInitials;
-    private String address;
-    private String email;
+    private String address;;
     //maybe make this an enum
     private String role;
 
     static Connection connection = Connectiondb.getConnection();
 
-    public Employee(String id, String sin, String firstName, String lastName, String middleInitials, String address, String email, String role) {
+    public Employee(String id, String sin, String firstName, String lastName, String middleInitials, String address, String role) {
         this.id = id;
         this.sin = sin;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleInitials = middleInitials;
         this.address = address;
-        this.email = email;
         this.role = role;
     }
 
@@ -75,14 +73,6 @@ public class Employee {
 
     public void setMiddleInitials(String middleInitials) {
         this.middleInitials = middleInitials;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getRole() {
@@ -135,7 +125,6 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", middleInitials='" + middleInitials + '\'' +
                 ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
@@ -148,7 +137,7 @@ public class Employee {
                 "<li> lastName='" + lastName + "</li>" +
                 "<li> middleInitials='" + middleInitials + "</li>" +
                 "<li> address='" + address + "</li>" +
-                "<li> email='" + email + "</li>" +
+
                 "<li> role='" + role + "</li>" ;
     }
 }
