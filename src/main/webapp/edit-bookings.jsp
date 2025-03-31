@@ -5,87 +5,81 @@
 <%@ page import="code.Booking" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Edit Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        .booking-card {
             padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        .form-inline {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-inline label {
-            margin: 0 5px;
-        }
-        .form-inline input[type="date"],
-        .form-inline input[type="submit"] {
-            padding: 5px;
-            font-size: 16px;
-            height: 40px;
-        }
-        .btn-danger {
-            background-color: #c9302c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-danger:hover {
-            background-color: #b52b26;
-        }
-        .message {
-            color: #c9302c;
-            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
     </style>
 </head>
 <body>
-<h1>Edit Booking</h1>
-<%
 
-    String bookingID = request.getParameter("book");
-    String employeeID = request.getParameter("employeeID");
-    Booking b = BookingDAO.getBookingBasedOnID(bookingID);
+    <nav class="navbar navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.jsp">Hotel Booking</a>
+            <a href="index.jsp" class="btn btn-light">Home</a>
+        </div>
+    </nav>
 
-    if (b != null) {
-%>
-<p><strong>Booking ID:</strong> <%= bookingID %></p>
-<form class="form-inline" action="EditBookingsServlet" method="post">
-    <input type="hidden" name="bookingID" value="<%= bookingID %>" />
-    <input type="hidden" name="employeeID" value="<%= employeeID %>" />
+    <div class="container mt-4">
+        <div class="jumbotron bg-primary text-white p-4 rounded-3 text-center">
+            <h1 class="display-6">Edit Booking</h1>
+        </div>
 
-    <label for="checkInDate">Check-In Date:</label>
-    <input type="date" id="checkInDate" name="checkInDate" required value="<%= b.getCheckInDate() %>" />
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div class="card booking-card">
+                    <div class="card-body">
+                        <%
+                            String bookingID = request.getParameter("book");
+                            String employeeID = request.getParameter("employeeID");
+                            Booking b = BookingDAO.getBookingBasedOnID(bookingID);
 
-    <label for="checkOutDate">Check-Out Date:</label>
-    <input type="date" id="checkOutDate" name="checkOutDate" required value="<%= b.getCheckOutDate() %>" />
+                            if (b != null) {
+                        %>
+                        <p><strong>Booking ID:</strong> <%= bookingID %></p>
 
-    <input type="submit" value="Update Booking" />
-</form>
-<form class="form-inline" action="DeleteBookingServlet" method="post">
-    <input type="hidden" name="bookingID" value="<%= bookingID %>" />
-    <input type="submit" value="Delete Booking" class="btn btn-danger" />
-</form>
-<%
-} else {
-%>
-<p class="message">No booking selected. Please select a booking to edit.</p>
-<%
-    }
-%>
+                        <form action="EditBookingsServlet" method="post">
+                            <input type="hidden" name="bookingID" value="<%= bookingID %>" />
+                            <input type="hidden" name="employeeID" value="<%= employeeID %>" />
+
+                            <div class="mb-3">
+                                <label for="checkInDate" class="form-label">Check-In Date:</label>
+                                <input type="date" id="checkInDate" name="checkInDate" class="form-control" required value="<%= b.getCheckInDate() %>" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="checkOutDate" class="form-label">Check-Out Date:</label>
+                                <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" required value="<%= b.getCheckOutDate() %>" />
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100">Update Booking</button>
+                        </form>
+
+                        <form action="DeleteBookingServlet" method="post" class="mt-3">
+                            <input type="hidden" name="bookingID" value="<%= bookingID %>" />
+                            <button type="submit" class="btn btn-danger w-100">Delete Booking</button>
+                        </form>
+
+                        <%
+                            } else {
+                        %>
+                        <p class="text-danger text-center">No booking selected. Please select a booking to edit.</p>
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

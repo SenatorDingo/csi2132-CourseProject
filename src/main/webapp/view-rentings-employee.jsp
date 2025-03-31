@@ -17,7 +17,7 @@
 
 <nav class="navbar navbar-dark bg-primary bg-gradient">
     <div class="container">
-        <a class="navbar-brand">Hotel Management</a>
+        <a class="navbar-brand">e-Hotels</a>
         <div class="ms-auto">
             <a href="index.jsp" class="btn btn-light">Home</a>
             <a href="view-bookings-employee.jsp?employeeID=<%= employeeID %>" class="btn btn-light">Bookings</a>

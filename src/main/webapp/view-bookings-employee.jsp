@@ -19,8 +19,10 @@
 <nav class="navbar navbar-dark bg-primary bg-gradient">
     <div class="container">
         <a class="navbar-brand">e-Hotels</a>
-        <a href="index.jsp" class="btn btn-light">Home</a>
-        <a href="ViewEmployeeRentingServlet?employeeID=<%= employeeID %>" class="btn btn-light">Rentings</a>
+        <div class="ms-auto">
+            <a href="index.jsp" class="btn btn-light">Home</a>
+            <a href="ViewEmployeeRentingServlet?employeeID=<%= employeeID %>" class="btn btn-light">Rentings</a>
+        </div>
     </div>
 </nav>
 
