@@ -156,4 +156,52 @@ public class BookingDAO {
         }
         return false;
     }
+
+    public boolean deleteBooking(String bookingID) {
+        String sql = "DELETE FROM booking WHERE bookingID = ?";
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, bookingID);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                logger.info("Booking successfully deleted with ID: " + bookingID);
+                return true;
+            }
+
+        } catch (SQLException e) {
+            logger.severe("SQL Exception while deleting booking: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+    public boolean updateBooking(String bookingID, Date checkInDate, Date checkOutDate) {
+        String sql = "UPDATE booking SET checkInDate = ?, checkOutDate = ? WHERE bookingID = ?";
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, bookingID);
+            pstmt.setDate(2, (java.sql.Date) checkInDate);
+            pstmt.setDate(3, (java.sql.Date) checkOutDate);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                logger.info("Booking successfully updated with ID: " + bookingID);
+                return true;
+            }
+
+        } catch (SQLException e) {
+            logger.severe("SQL Exception while updating booking: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+
 }
