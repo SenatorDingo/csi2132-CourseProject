@@ -32,7 +32,6 @@ public class EmployeeRegisterServlet extends HttpServlet {
 
             response.sendRedirect("search.jsp");
         } else {
-            
             response.sendRedirect("booking-failure.jsp");
         }
     }

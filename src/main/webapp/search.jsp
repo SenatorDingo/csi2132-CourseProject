@@ -144,6 +144,19 @@
                 <label for="checkOutDate" class="form-label">Check-Out Date:</label>
                 <input type="date" name="checkOutDate" id="checkOutDate" class="form-control">
             </div>
+            <div class="mb-3"><label for="city" class="form-label">City:</label>
+                <select name="city" id="city"
+                        class="form-control">
+                    <option value="" selected>Select City</option>
+                    <option value="Toronto">Toronto</option>
+                    <option value="Ottawa">Ottawa</option>
+                    <option value="Sandy Hill">Sandy Hill</option>
+                    <option value="Rockford">Rockford</option>
+                    <option value="Appleton">Appleton</option>
+                    <option value="Vancouver">Vancouver</option>
+                    <option value="San Louis">San Louis</option>
+                    <option value="Montreal">Montreal</option>
+                </select></div>
 
             <button type="submit" class="btn btn-primary">Search</button>
         </form>

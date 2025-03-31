@@ -7,13 +7,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 @WebServlet("/RoomSearchServlet")
 public class RoomSearchServlet extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String capacity = request.getParameter("capacity");
@@ -26,10 +26,9 @@ public class RoomSearchServlet extends HttpServlet {
         String checkOutDate = request.getParameter("checkOutDate");
         String customerID = request.getParameter("customerID");
 
-        List<Room> rooms = RoomDAO.searchRooms(capacity, view, amenity, maxPrice, hotelChain, category, checkInDate, checkOutDate);
-
+        String city = request.getParameter("city");
+        List<Room> rooms = RoomDAO.searchRooms(capacity, view, amenity, maxPrice, hotelChain, category, checkInDate, checkOutDate, city);
         request.setAttribute("rooms", rooms);
-
         request.setAttribute("customerID", customerID);
         System.out.println(Objects.equals(customerID, "null"));
         request.getRequestDispatcher("search-results.jsp").forward(request, response);

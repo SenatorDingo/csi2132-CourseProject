@@ -11,7 +11,7 @@ public class RoomDAO {
     private static final Logger logger = Logger.getLogger(RoomDAO.class.getName());
 
     public static List<Room> searchRooms(String capacity, String view, String amenity, String maxPrice,
-                                         String hotelChain, String category, String checkInDate, String checkOutDate) {
+                                         String hotelChain, String category, String checkInDate, String checkOutDate,String city) {
 
         List<Room> rooms = new ArrayList<>();
 
@@ -20,6 +20,11 @@ public class RoomDAO {
         query.append("JOIN hotel h ON r.hotelID = h.id ");
         query.append("JOIN owns o ON h.id = o.hotelID ");
         query.append("WHERE 1=1 ");
+
+        if (city != null && !city.isEmpty()) {
+            query.append("AND h.address LIKE '%").append(city).append("%' ");
+        }
+
 
         if (capacity != null && !capacity.isEmpty()) {
             query.append("AND r.capacity = ").append(capacity).append(" ");
