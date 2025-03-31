@@ -19,15 +19,14 @@
 <body>
     <nav class="navbar navbar-dark bg-primary bg-gradient mb-4">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp">Hotel Booking</a>
+            <a class="navbar-brand" href="index.jsp">e-Hotels</a>
             <a href="index.jsp" class="btn btn-light">Home</a>
         </div>
     </nav>
 
     <div class="container mt 4">
-        <div class="jumbotron bg-primary text-white p-5 rounded-3">
-            <h1 class="display-4">Log In</h1>
-            <p class="lead">Access your account</p>
+        <div class="jumbotron bg-primary text-white p-4 rounded-3 text-center">
+                <h1 class="display-6">Bookings for Your Hotel</h1>
         </div>
 
         <div class="row justify-content-center mt-4">

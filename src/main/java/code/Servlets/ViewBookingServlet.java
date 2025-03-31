@@ -19,11 +19,10 @@ import java.io.IOException;
 public class ViewBookingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String customerID = request.getParameter("customerID");
-        System.out.println(customerID);
         BookingDAO bookingDAO = new BookingDAO();
         RoomDAO roomDAO = new RoomDAO();
         Booking booking = bookingDAO.getCustomerBooking(customerID);
-        if (bookingDAO != null) {
+        if (booking != null) {
             Room room = roomDAO.getRoomInformationByBookingID(booking.getBookingID());
 
             if (room != null && booking != null) {
