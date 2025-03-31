@@ -63,13 +63,12 @@ public class EmployeeDAO {
                 "JOIN reserves r ON b.bookingID = r.bookingID " +
                 "JOIN hotel h ON r.hotelID = h.id " +
                 "JOIN employs e ON e.hotelID = h.id " +
-                "JOIN customer c ON b.bookingID = r.bookingID " +
-                "WHERE e.employeeID = E1";
+                "WHERE e.employeeID = ?";
 
         try (Connection conn = Connectiondb.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, employeeID); // Correctly setting the employee ID
+            stmt.setString(1, employeeID);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -89,4 +88,5 @@ public class EmployeeDAO {
 
         return bookings;
     }
+
 }

@@ -57,9 +57,6 @@
     </style>
 </head>
 <body>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<body>
 <div class="container">
     <h2>Bookings for Your Hotel</h2>
 
@@ -69,7 +66,7 @@
     %>
     <p class="no-bookings">No bookings found for your hotel.</p>
     <%
-    } else {
+        } else {
     %>
     <table>
         <thead>
@@ -80,19 +77,23 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="booking" items="${bookings}">
-            <tr>
-                <td>${booking.bookingID}</td>
-                <td>${booking.checkInDate}</td>
-                <td>${booking.checkOutDate}</td>
-            </tr>
-        </c:forEach>
+        <%
+            for (Booking booking : bookings) {
+        %>
+        <tr>
+            <td><%= booking.getBookingID() %></td>
+            <td><%= booking.getCheckInDate() %></td>
+            <td><%= booking.getCheckOutDate() %></td>
+        </tr>
+        <%
+            }
+        %>
         </tbody>
     </table>
     <%
         }
     %>
+    <a href="#" class="back-button">Back</a>
 </div>
 </body>
-
 </html>

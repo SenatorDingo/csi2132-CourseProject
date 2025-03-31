@@ -18,7 +18,7 @@ public class EmployeeLoginServlet extends HttpServlet {
 
         boolean exists = dao.checkEmployeeExists(employeeID);
         if (exists) {
-            response.sendRedirect("view-bookings-employee.jsp");
+            response.sendRedirect("ViewBookingEmployeeServlet?employeeID=" + employeeID);
         } else {
             response.sendRedirect("booking-failure.jsp");
         }
