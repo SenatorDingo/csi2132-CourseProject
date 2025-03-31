@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Booking System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .hero {
+            background-image: url(images/toronto.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,11 +44,13 @@
         </div>
     </nav>
 
-    <div class="container mt-5 text-center">
-        <h1>Welcome to the Hotel Booking System</h1>
-        <p>Find and book your perfect room with ease.</p>
-        <a href="customer-login.jsp" class="btn btn-primary">Customer</a>
-        <a href="employee-login.jsp" class="btn btn-primary">Employee</a>
+    <div class="hero">
+        <div class="p-5 bg-dark bg-opacity-70 rounded-3">
+            <h1 class="display-3">Welcome to the Hotel Booking System</h1>
+            <p class="lead">Find and book your perfect room with ease.</p>
+            <a href="customer-login.jsp" class="btn btn-light btn-lg me-2">Customer</a>
+            <a href="employee-login.jsp" class="btn btn-light btn-lg">Employee</a>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
