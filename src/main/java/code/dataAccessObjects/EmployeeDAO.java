@@ -60,6 +60,7 @@ public class EmployeeDAO {
         List<Booking> bookings = new ArrayList<>();
         String query = "SELECT DISTINCT b.bookingID, b.checkInDate, b.checkOutDate " +
                 "FROM booking b " +
+                "JOIN onlineBook ob ON b.bookingID = ob.bookingID " +
                 "JOIN reserves r ON b.bookingID = r.bookingID " +
                 "JOIN hotel h ON r.hotelID = h.id " +
                 "JOIN employs e ON e.hotelID = h.id " +
@@ -72,7 +73,6 @@ public class EmployeeDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    System.out.println("Booking ID Found: " + rs.getString("bookingID"));
                     Booking booking = new Booking(
                             rs.getString("bookingID"),
                             rs.getDate("checkInDate"),
@@ -88,5 +88,6 @@ public class EmployeeDAO {
 
         return bookings;
     }
+
 
 }

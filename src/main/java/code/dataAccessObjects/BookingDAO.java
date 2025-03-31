@@ -38,7 +38,6 @@ public class BookingDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return b;
     }
 

@@ -120,4 +120,40 @@ public class RoomDAO {
 
         return room;
     }
+
+    public static Room getRoomByBookingID(String bookingID) {
+        Room room = null;
+
+        String query = "SELECT r.* FROM room r " +
+                "JOIN reserves res ON r.hotelID = res.hotelID AND r.roomNumber = res.roomNumber " +
+                "WHERE res.bookingID = ?";
+
+        logger.info("SQL Query: " + query);
+
+        try (Connection conn = Connectiondb.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, bookingID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    room = new Room(
+                            rs.getString("hotelID"),
+                            rs.getInt("roomNumber"),
+                            rs.getInt("capacity"),
+                            rs.getFloat("price"),
+                            rs.getString("view"),
+                            rs.getString("amenity"),
+                            rs.getBoolean("knownIssues"),
+                            rs.getBoolean("extendable")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(room.getRoomNumber());
+        return room;
+    }
+
 }

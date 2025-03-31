@@ -2,105 +2,75 @@
 <%@ page import="code.Booking" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Hotel Bookings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h2 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background: #007BFF;
-            color: white;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #ccc;
-        }
-        .no-bookings {
-            color: red;
-            font-weight: bold;
-        }
-        .back-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .back-button:hover {
-            background: #0056b3;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <h2>Bookings for Your Hotel</h2>
+    <nav class="navbar navbar-dark bg-primary bg-gradient">
+        <div class="container">
+            <a class="navbar-brand">Hotel Management</a>
+            <a href="index.jsp" class="btn btn-light">Home</a>
+        </div>
+    </nav>
 
-    <%
-        String employeeID = request.getParameter("employeeID");
-        List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
-        if (bookings == null || bookings.isEmpty()) {
-    %>
-    <p class="no-bookings">No bookings found for your hotel.</p>
-    <%
-        } else {
-    %>
-    <table>
-        <thead>
-        <tr>
-            <th>Booking ID</th>
-            <th>Check-in Date</th>
-            <th>Check-out Date</th>
-            <th>Check In</th>
-            <th>Edit</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="container mt-5">
+        <div class="jumbotron bg-primary text-white p-4 rounded-3 text-center">
+            <h1 class="display-6">Bookings for Your Hotel</h1>
+        </div>
+
         <%
-            for (Booking booking : bookings) {
+            String employeeID = request.getParameter("employeeID");
+            List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
+            if (bookings == null || bookings.isEmpty()) {
         %>
-        <tr>
-            <td><%= booking.getBookingID() %></td>
-            <td><%= booking.getCheckInDate() %></td>
-            <td><%= booking.getCheckOutDate() %></td>
-<%--            change these parameteres--%>
-            <td><a href="CheckIn.jsp?book=<%= booking.getBookingID() %>" class="back-button">Check In</a></td>
-            <td><a href="edit-bookings.jsp?book=<%= booking.getBookingID() %>&employeeID=<%= employeeID %>" class="back-button">Edit</a></td>
+        <div class="alert alert-danger text-center mt-4" role="alert">
+            No bookings found for your hotel.
+        </div>
+        <%
+            } else {
+        %>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Check In</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for (Booking booking : bookings) {
+                    %>
+                    <tr>
+                        <td><%= booking.getBookingID() %></td>
+                        <td><%= booking.getCheckInDate() %></td>
+                        <td><%= booking.getCheckOutDate() %></td>
 
-        </tr>
+                        <td><a href="CheckInServlet?book=<%= booking.getBookingID() %>&employeeID=<%= employeeID %>" class="btn btn-success btn-sm">Check In</a></td>
+                        <td><a href="edit-bookings.jsp?book=<%= booking.getBookingID() %>&employeeID=<%= employeeID %>" class="btn btn-warning btn-sm">Edit</a></td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
         <%
             }
         %>
-        </tbody>
-    </table>
-    <%
-        }
-    %>
-    <a href="index.jsp" class="back-button">Back</a>
-</div>
+
+        <div class="text-center mt-4">
+            <a href="index.jsp" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -75,4 +75,25 @@ public class CustomerDAO {
         }
         return false;
     }
+
+    public static Customer getCustomerByBookingID(String bookingID) {
+        String query = "SELECT c.* FROM customer c " +
+                "JOIN onlineBook ob ON c.customerID = ob.customerID " +
+                "WHERE ob.bookingID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, bookingID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Customer(
+                        resultSet.getString("customerID"),
+                        resultSet.getString("name"),
+                        resultSet.getString("idType"),
+                        resultSet.getString("address")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

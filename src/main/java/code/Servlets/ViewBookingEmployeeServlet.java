@@ -23,7 +23,6 @@ public class ViewBookingEmployeeServlet extends HttpServlet {
             return;
         }
 
-        System.out.println("Employee ID: " + employeeID);
 
         // Use EmployeeDAO to get bookings for the employee's hotel
         List<Booking> bookings = EmployeeDAO.getBookingsForEmployee(employeeID);
