@@ -35,7 +35,7 @@ public class ViewBookingEmployeeServlet extends HttpServlet {
             request.getRequestDispatcher("/view-bookings-employee.jsp").forward(request, response);
         } else {
             // Redirect if no bookings are found
-            response.sendRedirect("booking-failure.jsp");
+            request.getRequestDispatcher("/view-bookings-employee.jsp").forward(request, response);
         }
     }
 }

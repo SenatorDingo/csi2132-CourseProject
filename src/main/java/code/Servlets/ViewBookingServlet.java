@@ -34,10 +34,11 @@ public class ViewBookingServlet extends HttpServlet {
 
                 request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
             } else {
-                response.sendRedirect("booking-failure.jsp");
+                request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
+
             }
         } else {
-            response.sendRedirect("booking-failure.jsp");
+            request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
         }
     }
 }

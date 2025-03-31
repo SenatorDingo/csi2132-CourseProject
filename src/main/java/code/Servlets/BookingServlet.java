@@ -40,7 +40,7 @@ public class BookingServlet extends HttpServlet {
 
 
             if (success) {
-                response.sendRedirect("booking-success.jsp");
+                response.sendRedirect("index.jsp");
             } else {
                 response.sendRedirect("booking-failure.jsp");
             }

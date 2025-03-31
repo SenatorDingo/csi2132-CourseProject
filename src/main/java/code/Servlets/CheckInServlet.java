@@ -65,9 +65,9 @@ public class CheckInServlet extends HttpServlet {
             Booking booking = bookingDAO.getBookingBasedOnID(bookingID);
             String rentingId = UUID.randomUUID().toString();
             if (booking != null) {
-                rentingDAO.createRentingForBooking(rentingId, bookingID, booking.getCheckInDate(), booking.getCheckOutDate(), paymentMethod);
+                rentingDAO.createRentingForBooking(rentingId, bookingID, booking.getCheckInDate(), booking.getCheckOutDate(), paymentMethod, employeeID);
 
-                response.sendRedirect("view-bookings.jsp?success=checkin");
+                response.sendRedirect("ViewBookingEmployeeServlet?employeeID=" + employeeID);
                 return;
             }
         }
