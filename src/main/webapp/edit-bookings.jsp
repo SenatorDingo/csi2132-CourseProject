@@ -14,6 +14,7 @@
 <%
 
     String bookingID = request.getParameter("book");
+    String employeeID = request.getParameter("employeeID");
     Booking b = BookingDAO.getBookingBasedOnID(bookingID);
 
     if (b != null) {
@@ -21,7 +22,7 @@
 <p>Booking ID: <%= bookingID %></p>
 <form action="EditBookingsServlet" method="post">
     <input type="hidden" name="bookingID" value="<%= bookingID %>" />
-
+    <input type="hidden" name="employeeID" value="<%= employeeID %>" />
     <label for="checkInDate">Check-In Date:</label>
     <input type="date" id="checkInDate" name="checkInDate" required value="<%=b.getCheckInDate()%>"/>
 

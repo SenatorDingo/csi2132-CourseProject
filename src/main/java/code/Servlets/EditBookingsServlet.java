@@ -22,6 +22,7 @@ public class EditBookingsServlet extends HttpServlet {
         Date checkOutDate = Date.valueOf(cout);
 
         boolean isUpdated = BookingDAO.updateBooking(bookingID, checkInDate, checkOutDate);
+        System.out.println("Is updated" + isUpdated);
 
         if (isUpdated) {
             response.sendRedirect("ViewBookingEmployeeServlet?employeeID=" + employeeID);

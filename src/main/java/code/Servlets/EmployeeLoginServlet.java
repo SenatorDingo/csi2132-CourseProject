@@ -17,6 +17,7 @@ public class EmployeeLoginServlet extends HttpServlet {
         EmployeeDAO dao = new EmployeeDAO();
 
         boolean exists = dao.checkEmployeeExists(employeeID);
+        System.out.println("Employee Validated" + exists);
         if (exists) {
             response.sendRedirect("ViewBookingEmployeeServlet?employeeID=" + employeeID);
         } else {

@@ -61,6 +61,7 @@
     <h2>Bookings for Your Hotel</h2>
 
     <%
+        String employeeID = request.getParameter("employeeID");
         List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
         if (bookings == null || bookings.isEmpty()) {
     %>
@@ -88,7 +89,7 @@
             <td><%= booking.getCheckOutDate() %></td>
 <%--            change these parameteres--%>
             <td><a href="CheckIn.jsp?book=<%= booking.getBookingID() %>" class="back-button">Check In</a></td>
-            <td><a href="edit-bookings.jsp?book=<%= booking.getBookingID() %>&employeeID=<%= request.getAttribute("employeeID") %>" class="back-button">Edit</a></td>
+            <td><a href="edit-bookings.jsp?book=<%= booking.getBookingID() %>&employeeID=<%= employeeID %>" class="back-button">Edit</a></td>
 
         </tr>
         <%
