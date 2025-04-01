@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="code.Booking" %>
-<%@ page import="code.Room" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List, java.util.Map" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,16 +31,14 @@
         </div>
 
         <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card booking-card">
                     <%
-                        Booking booking = (Booking) request.getAttribute("booking");
+                        List<Map<String, Object>> bookingDetails = (List<Map<String, Object>>) request.getAttribute("bookingDetails");
 
-                        if (booking == null) {
-                    %>
-                        <p class="text-danger text-center fw-bold">No bookings found for this customer.</p>
-                    <%
-                        } else {
+                        boolean hasValidBookings = false;
+
+                        if (bookingDetails != null) {
                     %>
                         <table class="table table-striped table-bordered">
                             <thead class="table-primary">
@@ -56,16 +52,41 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <%
+                                    for (Map<String, Object> details : bookingDetails) {
+                                        code.Booking booking = (code.Booking) details.get("booking");
+                                        String roomNumber = String.valueOf(details.get("roomNumber"));
+                                        String hotelID = String.valueOf(details.get("hotelID"));
+                                        String price = String.valueOf(details.get("price"));
+
+                                        // Skip booking if any field is "N/A"
+                                        if ("N/A".equalsIgnoreCase(roomNumber) ||
+                                            "N/A".equalsIgnoreCase(hotelID) ||
+                                            "N/A".equalsIgnoreCase(price)) {
+                                            continue;
+                                        }
+
+                                        hasValidBookings = true;
+                                %>
                                 <tr>
                                     <td><%= booking.getBookingID() %></td>
-                                    <td><%= request.getAttribute("hotelID") %></td>
-                                    <td><%= request.getAttribute("roomNumber") %></td>
+                                    <td><%= hotelID %></td>
+                                    <td><%= roomNumber %></td>
                                     <td><%= booking.getCheckInDate() %></td>
                                     <td><%= booking.getCheckOutDate() %></td>
-                                    <td>$<%= request.getAttribute("price") %></td>
+                                    <td>$<%= price %></td>
                                 </tr>
+                                <%
+                                    }
+                                %>
                             </tbody>
                         </table>
+                    <%
+                        }
+
+                        if (!hasValidBookings) {
+                    %>
+                        <p class="text-danger text-center fw-bold">No valid bookings found for this customer.</p>
                     <%
                         }
                     %>

@@ -11,8 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.io.IOException;
 
 @WebServlet("/ViewBookingServlet")
@@ -21,24 +20,30 @@ public class ViewBookingServlet extends HttpServlet {
         String customerID = request.getParameter("customerID");
         BookingDAO bookingDAO = new BookingDAO();
         RoomDAO roomDAO = new RoomDAO();
+
         List<Booking> bookings = bookingDAO.getCustomerBooking(customerID);
+
         if (bookings != null && !bookings.isEmpty()) {
-            Booking booking = bookings.get(0);
-            Room room = roomDAO.getRoomInformationByBookingID(booking.getBookingID());
+            List<Map<String, Object>> bookingDetails = new ArrayList<>();
 
-            if (room != null && booking != null) {
-                request.setAttribute("booking", booking);
-                request.setAttribute("roomNumber", room.getRoomNumber());
-                request.setAttribute("hotelID", room.getId());
-                request.setAttribute("price", room.getPrice());
+            for (Booking booking : bookings) {
+                Room room = roomDAO.getRoomInformationByBookingID(booking.getBookingID());
+                Map<String, Object> details = new HashMap<>();
 
-                request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
+                details.put("booking", booking);
+                details.put("roomNumber", (room != null) ? room.getRoomNumber() : "N/A");
+                details.put("hotelID", (room != null) ? room.getId() : "N/A");
+                details.put("price", (room != null) ? room.getPrice() : "N/A");
 
+                bookingDetails.add(details);
             }
+
+            request.setAttribute("bookingDetails", bookingDetails);
         } else {
-            request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
+            request.setAttribute("bookingDetails", Collections.emptyList());
         }
+
+        request.getRequestDispatcher("/view-booking.jsp").forward(request, response);
     }
+
 }

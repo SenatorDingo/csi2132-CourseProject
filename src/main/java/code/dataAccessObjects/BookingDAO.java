@@ -99,7 +99,6 @@ public class BookingDAO {
             logger.severe("SQL Exception while retrieving customer bookings: " + e.getMessage());
             e.printStackTrace();
         }
-
         return bookings;
     }
 
