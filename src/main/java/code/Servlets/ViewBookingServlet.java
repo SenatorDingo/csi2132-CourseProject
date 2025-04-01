@@ -21,8 +21,9 @@ public class ViewBookingServlet extends HttpServlet {
         String customerID = request.getParameter("customerID");
         BookingDAO bookingDAO = new BookingDAO();
         RoomDAO roomDAO = new RoomDAO();
-        Booking booking = bookingDAO.getCustomerBooking(customerID);
-        if (booking != null) {
+        List<Booking> bookings = bookingDAO.getCustomerBooking(customerID);
+        if (bookings != null && !bookings.isEmpty()) {
+            Booking booking = bookings.get(0);
             Room room = roomDAO.getRoomInformationByBookingID(booking.getBookingID());
 
             if (room != null && booking != null) {

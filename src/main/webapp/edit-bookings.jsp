@@ -64,6 +64,7 @@
 
                         <form action="DeleteBookingServlet" method="post" class="mt-3">
                             <input type="hidden" name="bookingID" value="<%= bookingID %>" />
+                            <input type="hidden" name="employeeID" value="<%= employeeID %>" />
                             <button type="submit" class="btn btn-danger w-100">Delete Booking</button>
                         </form>
 

@@ -67,8 +67,8 @@ public class BookingDAO {
         return bookings;
     }
 
-    public Booking getCustomerBooking(String customerID) {
-        Booking booking = null;
+    public List<Booking> getCustomerBooking(String customerID) {
+        List<Booking> bookings = new ArrayList<>();
         String bookingIdQuery = "SELECT bookingID FROM onlineBook WHERE customerID = ?";
         String bookingQuery = "SELECT * FROM booking WHERE bookingID = ?";
 
@@ -78,29 +78,31 @@ public class BookingDAO {
             bookingIdStmt.setString(1, customerID);
             ResultSet bookingIdRs = bookingIdStmt.executeQuery();
 
-            if (bookingIdRs.next()) {
+            while (bookingIdRs.next()) {
                 String bookingID = bookingIdRs.getString("bookingID");
 
                 try (PreparedStatement bookingStmt = conn.prepareStatement(bookingQuery)) {
                     bookingStmt.setString(1, bookingID);
                     ResultSet bookingRs = bookingStmt.executeQuery();
 
-                    if (bookingRs.next()) {
-                        booking = new Booking(
+                    while (bookingRs.next()) {
+                        Booking booking = new Booking(
                                 bookingRs.getString("bookingID"),
                                 bookingRs.getDate("checkInDate"),
                                 bookingRs.getDate("checkOutDate")
                         );
+                        bookings.add(booking);
                     }
                 }
             }
         } catch (SQLException e) {
-            logger.severe("SQL Exception while retrieving customer booking: " + e.getMessage());
+            logger.severe("SQL Exception while retrieving customer bookings: " + e.getMessage());
             e.printStackTrace();
         }
 
-        return booking;
+        return bookings;
     }
+
 
 
     public static boolean addBooking(String bookingId, Date checkInDate, Date checkOutDate) {
